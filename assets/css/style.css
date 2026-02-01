@@ -1,0 +1,530 @@
+
+:root {
+    --primary-orange: #f36f21;
+    --secondary-orange: #ff9800;
+    --dark-blue: #0056b3;
+    --header-bg: #fff;
+    --border-color: #ddd;
+    --success-green: #28a745;
+    --danger-red: #dc3545;
+    --warning-yellow: #ffc107;
+    --info-blue: #17a2b8;
+    --light-gray: #f4f4f4;
+    --dark-gray: #333;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    line-height: 1.6;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+    background-color: var(--primary-orange);
+    color: white;
+}
+
+/* =================================
+   NAVIGATION & HEADER
+   ================================= */
+
+.navbar {
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%) !important;
+    border-bottom: 3px solid var(--primary-orange) !important;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: var(--primary-orange) !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    color: #444 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 1rem !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-orange) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-orange);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 80%;
+}
+
+/* =================================
+   CARDS
+   ================================= */
+
+.card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: #fff !important;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--primary-orange);
+    font-weight: bold;
+    padding: 12px 15px;
+    border-left: 4px solid var(--primary-orange) !important;
+}
+
+/* Hover Cards */
+.hover-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* =================================
+   BUTTONS
+   ================================= */
+
+.btn-primary {
+    background-color: var(--primary-orange) !important;
+    border-color: var(--primary-orange) !important;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #d65d18 !important;
+    border-color: #d65d18 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(243, 111, 33, 0.3);
+}
+
+.btn-outline-light {
+    border-radius: 20px;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--primary-orange) !important;
+    border-color: var(--primary-orange) !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+/* =================================
+   TABLES
+   ================================= */
+
+.table {
+    background-color: white;
+}
+
+.table thead {
+    background-color: #f8f9fa;
+}
+
+.table th {
+    color: #555;
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-orange);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table-hover tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(243, 111, 33, 0.05);
+}
+
+/* Table responsive */
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* =================================
+   BADGES
+   ================================= */
+
+.badge.bg-primary {
+    background-color: var(--dark-blue) !important;
+}
+
+.badge.bg-danger {
+    background-color: var(--danger-red) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--success-green) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning-yellow) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--info-blue) !important;
+}
+
+/* =================================
+   BANNER & HEADER
+   ================================= */
+
+.header-banner {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.banner-text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner-text-overlay h1 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.banner-text-overlay h2 {
+    font-size: 1.8rem;
+    color: #ffeb3b;
+    font-weight: 300;
+}
+
+/* =================================
+   FORM ELEMENTS
+   ================================= */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 0.2rem rgba(243, 111, 33, 0.25);
+}
+
+.form-control,
+.form-select {
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: var(--primary-orange);
+}
+
+/* Custom Checkbox/Radio */
+.form-check-input:checked {
+    background-color: var(--primary-orange);
+    border-color: var(--primary-orange);
+}
+
+/* =================================
+   UTILITIES
+   ================================= */
+
+.text-primary {
+    color: var(--primary-orange) !important;
+}
+
+.text-success {
+    color: var(--success-green) !important;
+}
+
+.text-danger {
+    color: var(--danger-red) !important;
+}
+
+.text-warning {
+    color: var(--warning-yellow) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-orange) !important;
+}
+
+/* =================================
+   AUTHENTICATION STYLES
+   ================================= */
+
+.auth-group .nav-link {
+    color: #666 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-group .nav-link:hover {
+    color: var(--primary-orange) !important;
+}
+
+/* =================================
+   MODULE-SPECIFIC STYLES
+   ================================= */
+
+/* Chính trị Module */
+.chinh-tri-container {
+    border-top: 4px solid var(--primary-orange);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.chinh-tri-header {
+    color: var(--primary-orange);
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.chinh-tri-header i {
+    margin-right: 10px;
+}
+
+.card-chinh-tri {
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.card-chinh-tri:hover {
+    border-color: var(--primary-orange);
+    box-shadow: 0 5px 15px rgba(243, 111, 33, 0.1);
+}
+
+.card-chinh-tri .card-header {
+    background-color: #f8f9fa !important;
+    color: #333;
+    border-left: 5px solid var(--primary-orange);
+    font-weight: 600;
+}
+
+.table-chinh-tri th {
+    background-color: #fff3e0;
+    color: #e65100;
+    border-bottom: 2px solid var(--primary-orange);
+}
+
+.table-chinh-tri input.form-control-sm {
+    border: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;
+    color: var(--primary-orange);
+}
+
+#current-time {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+}
+
+.progress {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    padding: 12px 15px;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(243, 111, 33, 0.05);
+}
+
+.alert {
+    border-radius: 8px;
+    border-left-width: 4px;
+}
+
+.alert i {
+    margin-right: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 992px) {
+    .banner-text-overlay h1 {
+        font-size: 1.8rem;
+    }
+    
+    .banner-text-overlay h2 {
+        font-size: 1.3rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .h3 {
+        font-size: 1.5rem;
+    }
+    
+    .banner-text-overlay h1 {
+        font-size: 1.4rem;
+    }
+    
+    .banner-text-overlay h2 {
+        font-size: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .navbar {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-text-overlay h1 {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+    
+    .banner-text-overlay h2 {
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        font-size: 0.875rem;
+    }
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
+
+footer {
+    margin-top: auto;
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-orange) !important;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-orange);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d65d18;
+}
+
+@media print {
+    .navbar,
+    .btn,
+    .auth-group,
+    footer {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+}

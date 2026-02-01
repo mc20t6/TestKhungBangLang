@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống dữ liệu xã Bằng Lang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        .hover-card { transition: all 0.3s; cursor: pointer; }
+        .hover-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .stat-card { border-left: 4px solid; }
+        .search-result-item:hover { background-color: #f8f9fa; }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <div class="container-fluid p-0 position-relative">
+            <img src="assets/images/trangttbanglang.png" class="img-fluid w-100" style="max-height: 200px; object-fit: cover;" alt="Banner Xã Bằng Lang" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand border-end pe-3" href="index.html">
+                <i class="bi bi-house-door-fill text-warning"></i>
+                <span class="ms-2 fw-bold">DỮ LIỆU SỐ XÃ BẰNG LANG</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="index.html">
+                            <i class="bi bi-speedometer2"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modules/chinh-tri.html">
+                            <i class="bi bi-flag-fill"></i> Chính trị
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modules/kinh-te.html">
+                            <i class="bi bi-graph-up-arrow"></i> Kinh tế
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modules/van-hoa-xa-hoi.html">
+                            <i class="bi bi-people-fill"></i> Văn hóa - Xã hội
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modules/quoc-phong-an-ninh.html">
+                            <i class="bi bi-shield-lock-fill"></i> QP-AN
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nhap-lieu.html">
+                            <i class="bi bi-pencil-square"></i> Nhập liệu
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Search Box -->
+                <div class="d-flex align-items-center gap-3">
+                    <div class="position-relative">
+                        <input type="text" id="quickSearch" class="form-control form-control-sm ps-4" 
+                               placeholder="Tìm kiếm chỉ tiêu..." style="width: 250px;">
+                        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">
+                <i class="text-primary"></i>Tổng Quan
+            </h2>
+            <div class="text-muted small">
+                <i class="bi bi-clock"></i> <span id="timeDisplay"></span>
+            </div>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="row g-3 mb-4" id="statsCards">
+            <!-- Sẽ được điền bằng JS -->
+        </div>
+
+        <!-- Quick Search & Data Retrieval -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-search"></i> Tìm kiếm & Truy xuất nhanh
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Lĩnh vực</label>
+                                <select class="form-select" id="searchField">
+                                    <option value="">Tất cả lĩnh vực</option>
+                                    <option value="chinh-tri">Chính trị</option>
+                                    <option value="kinh-te">Kinh tế</option>
+                                    <option value="van-hoa-xa-hoi">Văn hóa - Xã hội</option>
+                                    <option value="quoc-phong-an-ninh">Quốc phòng - An ninh</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Thời gian</label>
+                                <input type="month" class="form-control" id="searchTime">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Từ khóa</label>
+                                <input type="text" class="form-control" id="searchKeyword" placeholder="VD: hộ nghèo, ANTT...">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-bold">&nbsp;</label>
+                                <button class="btn btn-primary w-100">
+                                    <i class="bi bi-search"></i> Truy xuất
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Search Results -->
+                        <div id="searchResult" class="mt-4 d-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Quick Access -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-grid-3x3-gap-fill"></i> Truy cập nhanh các module
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <a href="modules/chinh-tri.html" class="text-decoration-none">
+                                    <div class="card text-center border-primary hover-card">
+                                        <div class="card-body">
+                                            <i class="bi bi-flag-fill text-primary fs-1"></i>
+                                            <h6 class="mt-3">Chính trị</h6>
+                                            <small class="text-muted">24 chỉ tiêu</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="modules/kinh-te.html" class="text-decoration-none">
+                                    <div class="card text-center border-success hover-card">
+                                        <div class="card-body">
+                                            <i class="bi bi-graph-up-arrow text-success fs-1"></i>
+                                            <h6 class="mt-3">Kinh tế</h6>
+                                            <small class="text-muted">18 chỉ tiêu</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="modules/van-hoa-xa-hoi.html" class="text-decoration-none">
+                                    <div class="card text-center border-warning hover-card">
+                                        <div class="card-body">
+                                            <i class="bi bi-people-fill text-warning fs-1"></i>
+                                            <h6 class="mt-3">Văn hóa - Xã hội</h6>
+                                            <small class="text-muted">22 chỉ tiêu</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="modules/quoc-phong-an-ninh.html" class="text-decoration-none">
+                                    <div class="card text-center border-danger hover-card">
+                                        <div class="card-body">
+                                            <i class="bi bi-shield-lock-fill text-danger fs-1"></i>
+                                            <h6 class="mt-3">Quốc phòng - An ninh</h6>
+                                            <small class="text-muted">14 chỉ tiêu</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-lightning-fill"></i> Thao tác nhanh</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-toolbar gap-2">
+                            <button class="btn btn-outline-success" onclick="dashboard.loadSampleData()">
+                                <i class="bi bi-database-add"></i> Tải dữ liệu mẫu
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="dashboard.exportData()">
+                                <i class="bi bi-download"></i> Xuất dữ liệu
+                            </button>
+                            <button class="btn btn-outline-warning" onclick="dashboard.importData()">
+                                <i class="bi bi-upload"></i> Nhập dữ liệu
+                            </button>
+                            <button class="btn btn-outline-danger" onclick="dashboard.clearData()">
+                                <i class="bi bi-trash"></i> Xóa toàn bộ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-top mt-5 py-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="text-primary">ỦY BAN NHÂN DÂN XÃ BẰNG LANG</h6>
+                    <p class="small text-muted mb-0">
+                        Hệ thống quản lý dữ liệu số - Phục vụ công tác quản lý, điều hành
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="small text-muted mb-0">
+                        © 2026 Bằng Lang Digital System
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data-config.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/search.js"></script>
+    
+    <script>
+        class Dashboard {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.updateTime();
+                this.loadStats();
+                this.setCurrentMonth();
+                setInterval(() => this.updateTime(), 1000);
+            }
+
+            updateTime() {
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+                document.getElementById('timeDisplay').textContent = 
+                    now.toLocaleDateString('vi-VN', options);
+            }
+
+            setCurrentMonth() {
+                const now = new Date();
+                const monthInput = document.getElementById('searchTime');
+                if (monthInput) {
+                    monthInput.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+                }
+            }
+
+            loadStats() {
+                const now = new Date();
+                const month = now.getMonth() + 1;
+                const year = now.getFullYear();
+
+                // Lấy các chỉ tiêu chính
+                const danSo = dataManager.getData('vh_43', 'toan-xa', month, year);
+                const hoNgheo = dataManager.getData('vh_60', 'toan-xa', month, year);
+                const thuNganSach = dataManager.getData('kt_38', 'toan-xa', month, year);
+                const viPhamANTT = dataManager.getData('qp_70', 'toan-xa', month, year);
+
+                // Tính thay đổi
+                const danSoChange = dataManager.calculateChange('vh_43', 'toan-xa', month, year);
+                const hoNgheoChange = dataManager.calculateChange('vh_60', 'toan-xa', month, year);
+
+                const cards = [
+                    {
+                        title: 'Dân số hiện tại',
+                        value: danSo ? danSo.value.toLocaleString('vi-VN') : '0',
+                        change: danSoChange?.change,
+                        icon: 'people-fill',
+                        color: 'primary'
+                    },
+                    {
+                        title: 'Hộ nghèo',
+                        value: hoNgheo ? hoNgheo.value : '0',
+                        change: hoNgheoChange?.change,
+                        icon: 'house-heart-fill',
+                        color: 'danger'
+                    },
+                    {
+                        title: 'Thu ngân sách',
+                        value: thuNganSach ? `${thuNganSach.value} Tr` : '0 Tr',
+                        icon: 'currency-dollar',
+                        color: 'success'
+                    },
+                    {
+                        title: 'Vi phạm ANTT',
+                        value: viPhamANTT ? viPhamANTT.value : '0',
+                        icon: 'shield-check',
+                        color: 'warning'
+                    }
+                ];
+
+                const container = document.getElementById('statsCards');
+                container.innerHTML = cards.map(card => `
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 stat-card border-${card.color}">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="text-muted small text-uppercase">${card.title}</div>
+                                    <div class="h3 fw-bold mt-2">${card.value}</div>
+                                    ${card.change !== undefined && card.change !== null ? `
+                                        <div class="${card.change >= 0 ? 'text-success' : 'text-danger'} small mt-2">
+                                            <i class="bi bi-arrow-${card.change >= 0 ? 'up' : 'down'}"></i> 
+                                            ${card.change >= 0 ? '+' : ''}${card.change} so với tháng trước
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="bg-${card.color} bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-${card.icon} text-${card.color} fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            loadSampleData() {
+                if (confirm('Bạn có muốn tải dữ liệu mẫu? Điều này sẽ thêm dữ liệu demo vào hệ thống.')) {
+                    dataManager.loadSampleData();
+                    this.loadStats();
+                    this.showToast('Đã tải dữ liệu mẫu thành công!', 'success');
+                }
+            }
+
+            exportData() {
+                const json = dataManager.exportToJSON();
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `bang-lang-data-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                this.showToast('Đã xuất dữ liệu thành công!', 'success');
+            }
+
+            importData() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        if (dataManager.importFromJSON(event.target.result)) {
+                            this.loadStats();
+                            this.showToast('Đã nhập dữ liệu thành công!', 'success');
+                        } else {
+                            this.showToast('Lỗi: File không hợp lệ!', 'danger');
+                        }
+                    };
+                    reader.readAsText(file);
+                };
+                input.click();
+            }
+
+            clearData() {
+                if (dataManager.clearAll()) {
+                    this.loadStats();
+                    this.showToast('Đã xóa toàn bộ dữ liệu!', 'warning');
+                }
+            }
+
+            showToast(message, type = 'info') {
+                const colors = {
+                    success: 'bg-success',
+                    warning: 'bg-warning',
+                    danger: 'bg-danger',
+                    info: 'bg-info'
+                };
+
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white ${colors[type]} border-0 position-fixed bottom-0 end-0 m-3`;
+                toast.setAttribute('role', 'alert');
+                toast.style.zIndex = '9999';
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+                const bsToast = new bootstrap.Toast(toast);
+                bsToast.show();
+                setTimeout(() => toast.remove(), 3000);
+            }
+        }
+
+        // Initialize
+        let dashboard;
+        document.addEventListener('DOMContentLoaded', () => {
+            dashboard = new Dashboard();
+        });
+    </script>
+</body>
+</html>
